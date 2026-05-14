@@ -1,6 +1,7 @@
 package connection
 
 import (
+	"expense-tracker-api/domain"
 	"expense-tracker-api/internal/config"
 	"fmt"
 	"log"
@@ -32,6 +33,11 @@ func GetDatabase(conf config.Database) *gorm.DB {
 
 	if err := sqlDB.Ping(); err != nil {
 		log.Fatal("failed to ping database: ", err)
+	}
+
+	err = db.AutoMigrate(&domain.Expense{})
+	if err != nil {
+		log.Fatal("failed to auto migrate database: ", err)
 	}
 
 	return db

@@ -1,0 +1,29 @@
+### Get All Expenses
+GET http://localhost:8080/expenses
+
+### Create New Expense
+POST http://localhost:8080/expenses
+Content-Type: application/json
+
+{
+  "name": "Makan Siang",
+  "amount": 20000,
+  "category": "Food"
+}
+
+### Get Expense by ID
+GET http://localhost:8080/expenses/49dc6ddd-5bca-4711-9283-cc3b22744637
+
+### Update Expense by ID
+PUT http://localhost:8080/expenses/49dc6ddd-5bca-4711-9283-cc3b22744637
+Content-Type: application/json
+
+{
+  "name": "Makan Malam",
+  "amount": 20000,
+  "category": "Food"
+}
+
+### Delete Expense by ID
+DELETE http://localhost:8080/expenses/49dc6ddd-5bca-4711-9283-cc3b22744637
+

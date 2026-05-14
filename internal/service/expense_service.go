@@ -28,8 +28,9 @@ func (e ExpenseService) GetAllExpenses(c context.Context) ([]dto.ExpenseData, er
 	for _, expense := range expenses {
 		expensesDTO = append(expensesDTO, dto.ExpenseData{
 			ID:        expense.ID,
+			Name:      expense.Name,
 			Amount:    expense.Amount,
-			Category:  expense.Name,
+			Category:  expense.Category,
 			CreatedAt: expense.CreatedAt.String(),
 			UpdatedAt: expense.UpdatedAt.String(),
 		})
@@ -48,6 +49,7 @@ func (e ExpenseService) GetExpenseByID(c context.Context, id string) (dto.Expens
 		ID:        expense.ID,
 		Name:      expense.Name,
 		Amount:    expense.Amount,
+		Category:  expense.Category,
 		CreatedAt: expense.CreatedAt.String(),
 		UpdatedAt: expense.UpdatedAt.String(),
 	}, nil
@@ -55,9 +57,10 @@ func (e ExpenseService) GetExpenseByID(c context.Context, id string) (dto.Expens
 
 func (e ExpenseService) CreateExpense(c context.Context, expense dto.CreateExpenseData) error {
 	newExpense := &domain.Expense{
-		ID:     uuid.NewString(),
-		Name:   expense.Name,
-		Amount: expense.Amount,
+		ID:       uuid.NewString(),
+		Name:     expense.Name,
+		Amount:   expense.Amount,
+		Category: expense.Category,
 	}
 
 	return e.expenseRepository.Create(c, newExpense)
@@ -70,11 +73,12 @@ func (e ExpenseService) UpdateExpense(c context.Context, id string, expense dto.
 	}
 
 	updateExpense := &domain.Expense{
-		Name:   expense.Name,
-		Amount: expense.Amount,
+		Name:     expense.Name,
+		Amount:   expense.Amount,
+		Category: expense.Category,
 	}
 
-	return e.expenseRepository.Update(c, updateExpense)
+	return e.expenseRepository.Update(c, id, updateExpense)
 }
 
 func (e ExpenseService) DeleteExpense(c context.Context, id string) error {

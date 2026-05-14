@@ -75,7 +75,9 @@ func (ea ExpenseApi) CreateExpense(ctx fiber.Ctx) error {
 			JSON(dto.NewResponseError(err.Error()))
 	}
 
-	return ctx.JSON(dto.NewResponseSuccess("Create expense succeed.", expenseData))
+	return ctx.
+		Status(fiber.StatusCreated).
+		JSON(dto.NewResponseSuccess("Create expense succeed.", expenseData))
 }
 
 func (ea ExpenseApi) UpdateExpense(ctx fiber.Ctx) error {
@@ -103,7 +105,7 @@ func (ea ExpenseApi) UpdateExpense(ctx fiber.Ctx) error {
 			JSON(dto.NewResponseError(err.Error()))
 	}
 
-	return ctx.JSON(dto.NewResponseSuccess("Create expense succeed.", expenseData))
+	return ctx.JSON(dto.NewResponseSuccess("Update expense succeed.", expenseData))
 }
 
 func (ea ExpenseApi) DeleteExpense(ctx fiber.Ctx) error {
@@ -121,5 +123,7 @@ func (ea ExpenseApi) DeleteExpense(ctx fiber.Ctx) error {
 			JSON(dto.NewResponseError(err.Error()))
 	}
 
-	return ctx.SendStatus(fiber.StatusOK)
+	return ctx.
+		Status(fiber.StatusOK).
+		JSON(dto.NewResponseSuccess("Delete expense succeed.", ""))
 }

@@ -11,6 +11,7 @@ import (
 type Expense struct {
 	ID        string `gorm:"primaryKey"`
 	Name      string
+	Category  string
 	Amount    float64
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -21,7 +22,7 @@ type ExpenseRepository interface {
 	FindAll(c context.Context) ([]*Expense, error)
 	FindByID(c context.Context, id string) (*Expense, error)
 	Create(c context.Context, expense *Expense) error
-	Update(c context.Context, expense *Expense) error
+	Update(c context.Context, id string, expense *Expense) error
 	Delete(c context.Context, id string) error
 }
 

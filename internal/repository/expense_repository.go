@@ -47,10 +47,10 @@ func (e ExpenseRepository) Create(c context.Context, expense *domain.Expense) er
 	return nil
 }
 
-func (e ExpenseRepository) Update(c context.Context, expense *domain.Expense) error {
+func (e ExpenseRepository) Update(c context.Context, id string, expense *domain.Expense) error {
 	return e.db.WithContext(c).
 		Model(&domain.Expense{}).
-		Where("id = ?", expense.ID).
+		Where("id = ?", id).
 		Updates(expense).Error
 }
 
